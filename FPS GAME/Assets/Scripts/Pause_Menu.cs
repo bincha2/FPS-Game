@@ -31,6 +31,10 @@ public class Pause_Menu : MonoBehaviour
         pauseMenu.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+
+        //unlock the cursor when paused so i can interact with the pause menu buttons
+        Cursor.lockState = CursorLockMode.None; 
+        Cursor.visible = true; 
     }
 
     public void ResumeGame()
@@ -38,5 +42,18 @@ public class Pause_Menu : MonoBehaviour
         pauseMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+
+        //lock the cursor back so it dissapears when unpaused
+        Cursor.lockState = CursorLockMode.Locked; 
+        Cursor.visible = false; 
+    }
+    public void QuitGame()
+    {
+        Application.Quit();
+
+        //added this so that i can see if it quits in editor
+        #if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+        #endif
     }
 }

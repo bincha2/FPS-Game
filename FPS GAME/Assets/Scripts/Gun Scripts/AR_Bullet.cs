@@ -12,7 +12,12 @@ public class AR_Bullet : MonoBehaviour
   }
   void OnCollisionEnter(Collision collision)
   {
-    Destroy(collision.gameObject);
-    Destroy(gameObject);
+    Enemy_1 enemy = collision.gameObject.GetComponent<Enemy_1>();
+
+    if (enemy != null)
+    {
+      enemy.TakeDamage(10f);
+      Destroy(gameObject);
+    }
   }
 }

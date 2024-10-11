@@ -5,6 +5,7 @@ using UnityEngine;
 public class Pause_Menu : MonoBehaviour
 {
     public GameObject pauseMenu;
+    public GameObject crosshair;
     public static bool isPaused;
     void Start()
     {
@@ -35,6 +36,7 @@ public class Pause_Menu : MonoBehaviour
         //unlock the cursor when paused so i can interact with the pause menu buttons
         Cursor.lockState = CursorLockMode.None; 
         Cursor.visible = true; 
+        crosshair.SetActive(false); //hide the xhair when the game is paused
     }
 
     public void ResumeGame()
@@ -46,6 +48,7 @@ public class Pause_Menu : MonoBehaviour
         //lock the cursor back so it dissapears when unpaused
         Cursor.lockState = CursorLockMode.Locked; 
         Cursor.visible = false; 
+        crosshair.SetActive(true);
     }
     public void QuitGame()
     {

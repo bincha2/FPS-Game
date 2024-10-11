@@ -17,6 +17,6 @@ public class Enemy_1 : MonoBehaviour
 
    public void Die()
    {
-    Destroy(gameObject);
+    Destroy(gameObject); //destroy the gameObject that the script is in (enemy)
    }
 }

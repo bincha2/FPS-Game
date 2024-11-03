@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float bulletSpeed;
-    public float lifetime; // Set a default lifetime if not set in the Inspector
+    public float bulletSpeed; // bullet speed
+    public float lifetime; // liftetime of bullet
     private Rigidbody rb;
+
+    public int damage; //dnmg of bullet
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); // Ensure Rigidbody is assigned
-        rb.velocity = transform.forward * bulletSpeed; // Set initial velocity
+        rb = GetComponent<Rigidbody>(); 
+        rb.velocity = transform.forward * bulletSpeed; 
         Destroy(gameObject, lifetime); // Destroy after lifetime
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "Enemy")
+        {
+            other.gameObject.GetComponent<Enemy_Health>().TakeDMG(damage);
+        }
         Destroy(gameObject); // Destroy bullet on collision
     }
 }

@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Pause_Menu : MonoBehaviour
 {
     public GameObject pauseMenu;
     public GameObject crosshair;
+
+    public GameObject crosshairMenu;
+
+
     public static bool isPaused;
     void Start()
     {
         pauseMenu.SetActive(false);
+        crosshairMenu.SetActive(false);
     }
 
     void Update()
@@ -34,20 +40,21 @@ public class Pause_Menu : MonoBehaviour
         isPaused = true;
 
         //unlock the cursor when paused so i can interact with the pause menu buttons
-        Cursor.lockState = CursorLockMode.None; 
-        Cursor.visible = true; 
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         crosshair.SetActive(false); //hide the xhair when the game is paused
     }
 
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
+        crosshairMenu.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
 
         //lock the cursor back so it dissapears when unpaused
-        Cursor.lockState = CursorLockMode.Locked; 
-        Cursor.visible = false; 
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         crosshair.SetActive(true);
     }
     public void QuitGame()
@@ -55,8 +62,22 @@ public class Pause_Menu : MonoBehaviour
         Application.Quit();
 
         //added this so that i can see if it quits in editor
-        #if UNITY_EDITOR
+#if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
-        #endif
+#endif
+    }
+
+    public void OpenCrosshairMenu()
+    {
+        crosshairMenu.SetActive(true);
+
+        CanvasGroup crosshairMenuCG = crosshairMenu.GetComponent<CanvasGroup>();
+        crosshairMenuCG.alpha = 1;
+        crosshairMenuCG.interactable = true;
+        crosshairMenuCG.blocksRaycasts = true;
+
+        // Hide the pause menu panel
+        pauseMenu.SetActive(false);
+
     }
 }

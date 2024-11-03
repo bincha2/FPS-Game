@@ -25,6 +25,13 @@ public class Player_Movement : MonoBehaviour
     public GameObject bullet;
     public Transform firePoint;
 
+    public static Player_Movement instance;
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -81,6 +88,18 @@ public class Player_Movement : MonoBehaviour
         //shooting
         if (Input.GetMouseButtonDown(0))
         {
+            RaycastHit hit;
+            if (Physics.Raycast(playerCamera.transform.position, playerCamera.transform.forward, out hit, 200f))
+            {
+                if (Vector3.Distance(playerCamera.transform.position, hit.point) > 1f)
+                {
+                    firePoint.LookAt(hit.point);
+                }
+                else
+                {
+                    firePoint.LookAt(playerCamera.transform.position + playerCamera.transform.forward * 40f);
+                }
+            }
             Instantiate(bullet, firePoint.position, firePoint.rotation);
         }
     }

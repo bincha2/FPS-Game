@@ -1,0 +1,4 @@
+repository "FPS GAME@davidbincha@cloud"
+  path "/"
+    br "/main"
+    co "/main"

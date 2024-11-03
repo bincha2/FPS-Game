@@ -8,8 +8,8 @@ public class Player_Movement : MonoBehaviour
     public Camera playerCamera;
     public float walkSpeed = 5f;
     public float runSpeed = 10f;
-    public float jumpPower = 5f;
-    public float gravity = 10f;
+    public float jumpPower = 4f;
+    public float gravity = 12f;
     public float lookSpeed = 3f;
     public float lookXLimit = 45f;
     public float defaultHeight = 2f;
@@ -21,6 +21,9 @@ public class Player_Movement : MonoBehaviour
     private CharacterController characterController;
 
     private bool canMove = true;
+
+    public GameObject bullet;
+    public Transform firePoint;
 
     void Start()
     {
@@ -64,8 +67,8 @@ public class Player_Movement : MonoBehaviour
         else
         {
             characterController.height = defaultHeight;
-            walkSpeed = 6f;
-            runSpeed = 12f;
+            walkSpeed = 5f;
+            runSpeed = 10f;
         }
 
         characterController.Move(moveDirection * Time.deltaTime);
@@ -74,5 +77,11 @@ public class Player_Movement : MonoBehaviour
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
+
+        //shooting
+        if (Input.GetMouseButtonDown(0))
+        {
+            Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
     }
 }

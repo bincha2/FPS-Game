@@ -71,11 +71,6 @@ public class Pause_Menu : MonoBehaviour
     {
         crosshairMenu.SetActive(true);
 
-        CanvasGroup crosshairMenuCG = crosshairMenu.GetComponent<CanvasGroup>();
-        crosshairMenuCG.alpha = 1;
-        crosshairMenuCG.interactable = true;
-        crosshairMenuCG.blocksRaycasts = true;
-
         // Hide the pause menu panel
         pauseMenu.SetActive(false);
 

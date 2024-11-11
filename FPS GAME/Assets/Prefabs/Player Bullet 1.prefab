@@ -188,6 +188,8 @@ MonoBehaviour:
   bulletSpeed: 35
   lifetime: 5
   damage: 1
+  dmgEnemy: 1
+  dmgPlayer: 0
 --- !u!96 &-8503107369743026377
 TrailRenderer:
   serializedVersion: 3

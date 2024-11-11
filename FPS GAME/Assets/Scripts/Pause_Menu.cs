@@ -10,6 +10,8 @@ public class Pause_Menu : MonoBehaviour
 
     public GameObject crosshairMenu;
 
+    public GameObject HealthBar;
+
 
     public static bool isPaused;
     void Start()
@@ -42,7 +44,8 @@ public class Pause_Menu : MonoBehaviour
         //unlock the cursor when paused so i can interact with the pause menu buttons
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
-        crosshair.SetActive(false); //hide the xhair when the game is paused
+        crosshair.SetActive(false);
+        HealthBar.SetActive(false); //hide the xhair when the game is paused
     }
 
     public void ResumeGame()
@@ -56,6 +59,7 @@ public class Pause_Menu : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
         crosshair.SetActive(true);
+        HealthBar.SetActive(true);
     }
     public void QuitGame()
     {

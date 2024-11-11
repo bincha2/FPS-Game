@@ -10,18 +10,25 @@ public class Bullet : MonoBehaviour
 
     public int damage; //dnmg of bullet
 
+    public bool dmgEnemy;
+    public bool dmgPlayer;
+
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); 
-        rb.velocity = transform.forward * bulletSpeed; 
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = transform.forward * bulletSpeed;
         Destroy(gameObject, lifetime); // Destroy after lifetime
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (other.gameObject.tag == "Enemy" && dmgEnemy) // if enemy
         {
             other.gameObject.GetComponent<Enemy_Health>().TakeDMG(damage);
+        }
+        if (other.gameObject.tag == "Player" && dmgPlayer) // if player, bullet 1 and enemy bullet 1 have bool tags fro dmg player and dmg enemy
+        {
+            Player_Health.instance.TakePlayerDMG(damage);
         }
         Destroy(gameObject); // Destroy bullet on collision
     }

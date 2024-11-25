@@ -13,10 +13,14 @@ public class HP_Bar : MonoBehaviour
     public Slider HPslider;
     public TextMeshProUGUI HPtext;
 
+    public int killCount;
+    public TextMeshProUGUI KillCounter;
+
 
     private void Awake()
     {
         instance = this;
+
     }
     // Start is called before the first frame update
     void Start()

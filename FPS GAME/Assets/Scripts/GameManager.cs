@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 
     public static GameManager instance;
 
-    public float DeathTimer = 3f;
+    public float DeathTimer = 1;
+    public string DeathMenu = "DeathMenu";
 
     private void Awake()
     {
@@ -28,13 +30,14 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDeath()
     {
-        // StartCoroutine(DeathCountdown()); // when player dies from player_health.cs, call deathcountdown
+        // when player dies from player_health.cs, call death scene
         StartCoroutine(PlayerDeathCoroutine());
     }
 
     public IEnumerator PlayerDeathCoroutine()
     {
         yield return new WaitForSeconds(DeathTimer);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // respawn
+        SceneManager.LoadScene(DeathMenu); // respawn
+        Cursor.lockState = CursorLockMode.None;
     }
 }

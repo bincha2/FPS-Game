@@ -27,6 +27,11 @@ public class Player_Movement : MonoBehaviour
 
     public static Player_Movement instance;
 
+    // Footsteps
+    public AudioSource footstepAudioSource;
+    public float footstepInterval = 0.5f;
+    private float footstepTimer = 0f;
+
     private void Awake()
     {
         instance = this;
@@ -38,6 +43,7 @@ public class Player_Movement : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
+
     void Update()
     {
         if (Pause_Menu.isPaused) return; // Stop movement if paused
@@ -51,6 +57,7 @@ public class Player_Movement : MonoBehaviour
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
 
+        // Handle jumping
         if (Input.GetButton("Jump") && characterController.isGrounded)
         {
             moveDirection.y = jumpPower;
@@ -65,6 +72,7 @@ public class Player_Movement : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
         }
 
+        // Handle crouching
         if (Input.GetKey(KeyCode.C))
         {
             characterController.height = crouchHeight;
@@ -80,12 +88,13 @@ public class Player_Movement : MonoBehaviour
 
         characterController.Move(moveDirection * Time.deltaTime);
 
+        // Handle camera rotation
         rotationX += -Input.GetAxis("Mouse Y") * lookSpeed;
         rotationX = Mathf.Clamp(rotationX, -lookXLimit, lookXLimit);
         playerCamera.transform.localRotation = Quaternion.Euler(rotationX, 0, 0);
         transform.rotation *= Quaternion.Euler(0, Input.GetAxis("Mouse X") * lookSpeed, 0);
 
-        //shooting
+        // Handle shooting
         if (Input.GetMouseButtonDown(0))
         {
             RaycastHit hit;
@@ -101,6 +110,30 @@ public class Player_Movement : MonoBehaviour
                 }
             }
             Instantiate(bullet, firePoint.position, firePoint.rotation);
+        }
+
+        // Play footstep sound
+        HandleFootsteps(isRunning);
+    }
+
+    private void HandleFootsteps(bool isRunning)
+    {
+        if (characterController.isGrounded && characterController.velocity.magnitude > 0.1f)
+        {
+            footstepTimer += Time.deltaTime;
+
+            if (footstepTimer >= (isRunning ? footstepInterval / 2 : footstepInterval))
+            {
+                if (footstepAudioSource != null)
+                {
+                    footstepAudioSource.Play();
+                }
+                footstepTimer = 0f;
+            }
+        }
+        else
+        {
+            footstepTimer = 0f; // Reset timer
         }
     }
 }

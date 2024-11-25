@@ -12,6 +12,8 @@ public class Pause_Menu : MonoBehaviour
 
     public GameObject HealthBar;
 
+    public GameObject KillCounter;
+
 
     public static bool isPaused;
     void Start()
@@ -46,6 +48,7 @@ public class Pause_Menu : MonoBehaviour
         Cursor.visible = true;
         crosshair.SetActive(false);
         HealthBar.SetActive(false); //hide the xhair when the game is paused
+        KillCounter.SetActive(false);
     }
 
     public void ResumeGame()
@@ -60,6 +63,7 @@ public class Pause_Menu : MonoBehaviour
         Cursor.visible = false;
         crosshair.SetActive(true);
         HealthBar.SetActive(true);
+        KillCounter.SetActive(true);
     }
     public void QuitGame()
     {

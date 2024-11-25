@@ -41,7 +41,7 @@ public class Player_Health : MonoBehaviour
 
             currHealth = 0; // hp is 0
 
-            GameManager.instance.PlayerDeath(); // respawn
+            GameManager.instance.PlayerDeath(); // respawn / death screen
         }
 
         //update the slider and text to correespond player hp

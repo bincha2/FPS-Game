@@ -29,8 +29,12 @@ public class HP_Bar : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void UpdateKillCount()
     {
+        killCount += 1;
+        PlayerPrefs.SetInt("KillCount", killCount);  
+        PlayerPrefs.Save();  
+        KillCounter.text = "Kill Count: " + killCount;
     }
 
 }

@@ -17,16 +17,13 @@ public class Enemy_Health : MonoBehaviour
     {
 
     }
-
-
     public void TakeDMG(int damage)
+{
+    currentHealth -= damage;
+    if (currentHealth <= 0)
     {
-        currentHealth -= damage;
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject); //destroy enemy once health is depleted
-            HP_Bar.instance.killCount += 1;
-            HP_Bar.instance.KillCounter.text = "Kill Count: " + HP_Bar.instance.killCount;
-        }
+        Destroy(gameObject);
+        HP_Bar.instance.UpdateKillCount();  // Use the new method
     }
+}
 }

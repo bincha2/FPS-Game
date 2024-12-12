@@ -11,10 +11,16 @@ public class Death_Menu : MonoBehaviour
 
     public static Death_Menu instance;
 
-    // Start is called before the first frame update
-    void Start()
-    {
+    public TextMeshProUGUI finalKillCountText;
 
+     void Start()
+    {
+        // Display the kill count when death menu loads
+        if (finalKillCountText != null)
+        {
+            int finalKills = PlayerPrefs.GetInt("KillCount", 0);
+            finalKillCountText.text = "Final Kill Count: " + finalKills;
+        }
     }
 
     // Update is called once per frame
@@ -24,6 +30,9 @@ public class Death_Menu : MonoBehaviour
 
     public void MainMenu() // return to the main menu of game
     {
+        PlayerPrefs.SetInt("KillCount", 0);
+        PlayerPrefs.Save();
+
         SceneManager.LoadScene(main_menu);
     }
 
